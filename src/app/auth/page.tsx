@@ -5,7 +5,6 @@ import {
   getAuth, 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
-  signOut, 
   onAuthStateChanged, 
   User 
 } from "firebase/auth";
@@ -34,7 +33,6 @@ export default function AuthPage() {
     setError('');
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      // On successful sign-up, redirect to the verification page
       router.push('/verify-phone');
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -48,7 +46,6 @@ export default function AuthPage() {
     setError('');
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // On successful login, redirect to the dashboard (which will then check for verification)
       router.push('/dashboard');
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -61,17 +58,20 @@ export default function AuthPage() {
     return <p>Loading...</p>;
   }
   
-  // If user is already logged in, redirect them away from the auth page
   if (user) {
     router.push('/dashboard');
-    return null; // Render nothing while redirecting
+    return null;
   }
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Authentication</h1>
+    <div className="form-container">
+      <h1 style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: '600', marginBottom: '1rem' }}>
+        Welcome to Syacofa
+      </h1>
+      <h2 style={{ textAlign: 'center', color: '#4a5568', marginBottom: '2rem' }}>
+        Sign Up or Log In
+      </h2>
       <form>
-        <h2>Sign Up / Log In</h2>
         <div>
           <label htmlFor="email">Email:</label>
           <input 
@@ -93,11 +93,13 @@ export default function AuthPage() {
           />
         </div>
         <div style={{ marginTop: '1.5rem' }}>
-          <button type="submit" onClick={handleSignUp} style={{ marginRight: '1rem' }}>Sign Up</button>
           <button type="submit" onClick={handleLogIn}>Log In</button>
         </div>
+        <div style={{ marginTop: '0.75rem' }}>
+          <button type="submit" onClick={handleSignUp} style={{ backgroundColor: '#4a5568' }}>Sign Up</button>
+        </div>
       </form>
-      {error && <p style={{ color: 'red', marginTop: '1rem' }}>{error}</p>}
+      {error && <p style={{ color: 'red', marginTop: '1rem', textAlign: 'center' }}>{error}</p>}
     </div>
   );
 }
