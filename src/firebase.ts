@@ -6,8 +6,8 @@ import { getAnalytics } from 'firebase/analytics';
 const firebaseConfig = {
   apiKey: "AIzaSyApvw_1hBVYRR0LpnchpGSyRJSBbjh6Ncc",
   authDomain: "syacofa-social-media.firebaseapp.com",
-  projectId: "syacofa-social-media.firebasestorage.app",
-  storageBucket: "syacofa-social-media",
+  projectId: "syacofa-social-media",
+  storageBucket: "syacofa-social-media.firebasestorage.app",
   messagingSenderId: "880894093409",
   appId: "1:880894093409:web:b9cd61007f1f48eb15e220",
 };
